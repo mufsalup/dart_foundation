@@ -1,10 +1,8 @@
 # Dart Foundation
----
 Dart Foundation is a package for any dart project featuring common types, validators, failures and
 errors.
 
 ## Value Objects
----
 ### Needed packages
 - dartz 
 
@@ -25,7 +23,6 @@ print(emailAddress);
 ```
 
 ## Validator
----
 ### Description
 Validator is featuring a set of different validators (more to be implemented). They can be accessed
 using the factories. An either is created with the *validate(value)* method. See example below:
@@ -42,7 +39,6 @@ print(eitherResult);
 ```
 
 ## Types and ValueObjects
----
 ### Description
 You can use the abstract *ValueObject<Type>* to create new value objects or use predefined ones.
 
