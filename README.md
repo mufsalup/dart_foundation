@@ -1,39 +1,70 @@
-<!-- 
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
+# Dart Foundation
+---
+Dart Foundation is a package for any dart project featuring common types, validators, failures and
+errors.
 
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/tools/pub/writing-package-pages). 
+## Value Objects
+---
+### Needed packages
+- dartz 
 
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/to/develop-packages). 
--->
+### Description
+Value Objects are used to have validated objects in the application. On creation they are validated
+using the validator of this package. It also uses either from *dartz* to either have ValueFailures
+or the value itself.
 
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
-
-## Features
-
-TODO: List what your package can do. Maybe include images, gifs, or videos.
-
-## Getting started
-
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
-
-## Usage
-
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder. 
-
+### Example (with EmailAddress)
 ```dart
-const like = 'sample';
+final EmailAddress emailAddress = EmailAddress('holler.christian.99@gmail.com');
+print(emailAdress);
+> Value(Right(holler.christian.99@gmail.com))
+
+final EmailAddress emailAddress = EmailAddress('holler.christian.99@');
+print(emailAddress);
+> Value(Left(...)
 ```
 
-## Additional information
+## Validator
+---
+### Description
+Validator is featuring a set of different validators (more to be implemented). They can be accessed
+using the factories. An either is created with the *validate(value)* method. See example below:
 
-TODO: Tell users more about the package: where to find more information, how to 
-contribute to the package, how to file issues, what response they can expect 
-from the package authors, and more.
+### Example (with StringValidator)
+```dart
+final eitherResult = Validator.string().minLength(3).validate('Hello World');
+print(eitherResult);
+> Value(Right(Hello World))
+
+final eitherResult = Validator.string().minLength(3).validate('Hi');
+print(eitherResult);
+> Value(Left(Unexpected value failure. Cause: String length < 3))
+```
+
+## Types and ValueObjects
+---
+### Description
+You can use the abstract *ValueObject<Type>* to create new value objects or use predefined ones.
+
+## Example
+```dart
+class NewValueObject extends ValueObject<String> {
+  @override
+  final Either<ValueFailure, String> value;
+
+  const NewValueObject._(this.value);
+
+  factory NewValueObject(final String input) {
+    return NewValueObject._(
+      Validator.string()
+          .minLength(8)
+          .validate(input)
+    );
+  }
+}
+```
+
+## Featured ValueObjects
+- UniqueId
+- EmailAddress
+- Password

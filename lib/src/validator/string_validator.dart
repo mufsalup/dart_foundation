@@ -69,7 +69,7 @@ class StringValidator {
   /// Adds specified rule to ruleset.
   StringValidator hasLength(final int length) {
     _rules.add((input) {
-      return input.length == length
+      return input.length != length
           ? left(ValueFailure.apply('String length != ${length.toString}.'))
           : right(input);
     });
