@@ -13,11 +13,11 @@ or the value itself.
 
 ### Example (with EmailAddress)
 ```dart
-final EmailAddress emailAddress = EmailAddress('holler.christian.99@gmail.com');
+final EmailAddress emailAddress = EmailAddress('test@gmail.com');
 print(emailAdress);
-> Value(Right(holler.christian.99@gmail.com))
+> Value(Right(test@gmail.com))
 
-final EmailAddress emailAddress = EmailAddress('holler.christian.99@');
+final EmailAddress emailAddress = EmailAddress('test99@');
 print(emailAddress);
 > Value(Left(...)
 ```
