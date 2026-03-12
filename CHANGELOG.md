@@ -3,6 +3,10 @@ ___
 
 Copyright: Christian Holler
 
+## 1.0.0+2
+- Added new validation for StringValidator '*inList(List<String>)*'
+- Added tests for created validation
+
 ## 1.0.0+1
 - Added *unchecked()* method to validator, so values can be passed without checks if needed.
 - Added IntValidator class.

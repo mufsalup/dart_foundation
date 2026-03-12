@@ -134,6 +134,19 @@ void main() {
       expect(result.isLeft(), isTrue);
     });
 
+    test('inList() should pass when String is in the accepted list', () {
+      final validator = Validator.string().inList(['A', 'B', 'C']);
+      final result = validator.validate('A');
+      expect(result.isRight(), isTrue);
+      expect(result, equals(right('A')));
+    });
+
+    test('inList() should fail when String is not in the accepted list', () {
+      final validator = Validator.string().inList(['A', 'B', 'C']);
+      final result = validator.validate('D');
+      expect(result.isLeft(), isTrue);
+    });
+
     test('validate() should apply multiple rules in order and pass when all succeed', () {
       final validator = Validator.string()
           .notEmpty()

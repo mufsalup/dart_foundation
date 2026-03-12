@@ -128,6 +128,18 @@ class StringValidator {
     return this;
   }
 
+  /// String validation method to check if input is present in a list of
+  /// strings.
+  /// Adds specified rule to ruleset.
+  StringValidator inList(final List<String> inList) {
+    _rules.add((input) {
+      return inList.contains(input)
+          ? right(input)
+          : left(ValueFailure('String must be in accepted list.'));
+    });
+    return this;
+  }
+
   /// Validate method that is taking the input value to validate.
   /// Every defined rule is applied to the input string.
   ///
