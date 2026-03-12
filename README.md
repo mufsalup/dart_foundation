@@ -70,7 +70,16 @@ class NewValueObject extends ValueObject<String> {
 }
 ```
 
+## Featured Validators
+- BoolValidator
+- IntValidator
+- StringValidator  
+
+... more to come
+
 ## Featured ValueObjects
 - UniqueId
 - EmailAddress
 - Password
+
+... more to come
