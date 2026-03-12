@@ -21,7 +21,7 @@ class StringValidator {
       final regex = RegExp(r'.*\d.*');
       return regex.hasMatch(input)
           ? right(input)
-          : left(ValueFailure.apply('String does not contain any number character.'));
+          : left(ValueFailure('String does not contain any number character.'));
     });
     return this;
   }
@@ -34,7 +34,7 @@ class StringValidator {
       final regex = RegExp(r'.*[a-z].*');
       return regex.hasMatch(input)
           ? right(input)
-          : left(ValueFailure.apply('String does not contain any lower case character.'));
+          : left(ValueFailure('String does not contain any lower case character.'));
     });
     return this;
   }
@@ -47,7 +47,7 @@ class StringValidator {
       final regex = RegExp(r'.*[!@#$%^&*(),.?":{}|<>].*');
       return regex.hasMatch(input)
           ? right(input)
-          : left(ValueFailure.apply('String does not contain any special character.'));
+          : left(ValueFailure('String does not contain any special character.'));
     });
     return this;
   }
@@ -60,7 +60,7 @@ class StringValidator {
       final regex = RegExp(r'.*[A-Z].*');
       return regex.hasMatch(input)
           ? right(input)
-          : left(ValueFailure.apply('String does not contain any upper case character.'));
+          : left(ValueFailure('String does not contain any upper case character.'));
     });
     return this;
   }
@@ -70,7 +70,7 @@ class StringValidator {
   StringValidator hasLength(final int length) {
     _rules.add((input) {
       return input.length != length
-          ? left(ValueFailure.apply('String length != ${length.toString}.'))
+          ? left(ValueFailure('String length != ${length.toString}.'))
           : right(input);
     });
     return this;
@@ -81,7 +81,7 @@ class StringValidator {
   StringValidator maxLength(final int maxLength) {
     _rules.add((input) {
       return input.length > maxLength
-          ? left(ValueFailure.apply('String length > ${maxLength.toString}.'))
+          ? left(ValueFailure('String length > ${maxLength.toString}.'))
           : right(input);
     });
     return this;
@@ -92,7 +92,7 @@ class StringValidator {
   StringValidator minLength(final int minLength) {
     _rules.add((input) {
       return input.length < minLength
-          ? left(ValueFailure.apply('String length < ${minLength.toString}.'))
+          ? left(ValueFailure('String length < ${minLength.toString}.'))
           : right(input);
     });
     return this;
@@ -104,7 +104,7 @@ class StringValidator {
     _rules.add((input) {
       final trimmedString = input.trim();
       return trimmedString.isEmpty
-          ? left(ValueFailure.apply('Empty string.'))
+          ? left(ValueFailure('Empty string.'))
           : right(trimmedString);
     });
     return this;
@@ -123,7 +123,7 @@ class StringValidator {
     _rules.add((input) {
       return regex.hasMatch(input)
           ? right(input)
-          : left(ValueFailure.apply('Regular expression does not match.'));
+          : left(ValueFailure('Regular expression does not match.'));
     });
     return this;
   }

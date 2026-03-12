@@ -14,7 +14,7 @@ class ValueError extends Error {
   ValueError._(this.valueFailure);
 
   /// Public factory used for object initialization.
-  factory ValueError.apply(ValueFailure valueFailure) => ValueError._(valueFailure);
+  factory ValueError(ValueFailure valueFailure) => ValueError._(valueFailure);
 
   /// Checks if the ValueError and another object are equal.
   ///

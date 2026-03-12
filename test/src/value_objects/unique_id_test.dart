@@ -5,20 +5,20 @@ import 'package:dartz/dartz.dart';
 void main() {
   group('UniqueId', () {
     test('UniqueId() should create a valid value object', () {
-      final uniqueId = UniqueId();
+      final uniqueId = UniqueId.uuidV4();
       expect(uniqueId.isValid(), isTrue);
       expect(uniqueId.value.isRight(), isTrue);
     });
 
     test('UniqueId() should generate a non-empty string', () {
-      final uniqueId = UniqueId();
+      final uniqueId = UniqueId.uuidV4();
       final value = uniqueId.getOrCrash();
       expect(value, isNotEmpty);
     });
 
     test('UniqueId() should generate different values for different instances', () {
-      final first = UniqueId();
-      final second = UniqueId();
+      final first = UniqueId.uuidV4();
+      final second = UniqueId.uuidV4();
       expect(first == second, isFalse);
       expect(first.getOrCrash(), isNot(equals(second.getOrCrash())));
     });
@@ -65,7 +65,7 @@ void main() {
       final uuidV4Pattern = RegExp(
         r'^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$',
       );
-      final uniqueId = UniqueId();
+      final uniqueId = UniqueId.uuidV4();
       final value = uniqueId.getOrCrash();
       expect(uuidV4Pattern.hasMatch(value), isTrue);
     });

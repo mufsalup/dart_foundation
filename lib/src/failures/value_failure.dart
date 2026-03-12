@@ -11,7 +11,7 @@ class ValueFailure {
   const ValueFailure._(this.message);
 
   /// Public factory used for object initialization.
-  factory ValueFailure.apply(String message) => ValueFailure._(message);
+  factory ValueFailure(String message) => ValueFailure._(message);
 
   /// Checks if the ValueFailure and another object are equal.
   ///

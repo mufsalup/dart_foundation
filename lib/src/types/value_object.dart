@@ -25,7 +25,7 @@ abstract class ValueObject<T> {
   /// Instead of Exceptions, Errors are made to stop the application.
   /// This method should only be used when it is expected, that the value is valid.
   T getOrCrash() {
-    return value.fold((failure) => throw ValueError.apply(failure), (value) => value);
+    return value.fold((failure) => throw ValueError(failure), (value) => value);
   }
 
   /// Checks if the ValueObject and another object are equal.

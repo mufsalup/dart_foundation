@@ -9,15 +9,13 @@ class Password extends ValueObject<String> {
 
   const Password._(this.value);
 
-  factory Password(final String input) {
-    return Password._(
-      Validator.string()
-          .minLength(8)
-          .containsLowercase()
-          .containsUppercase()
-          .containsDigit()
-          .containsSpecialChar()
-          .validate(input)
-    );
-  }
+  factory Password(final String input) => Password._(
+    Validator.string()
+        .minLength(8)
+        .containsLowercase()
+        .containsUppercase()
+        .containsDigit()
+        .containsSpecialChar()
+        .validate(input),
+  );
 }

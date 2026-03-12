@@ -5,6 +5,8 @@ errors.
 ## Value Objects
 ### Needed packages
 - dartz 
+- meta
+- uuid
 
 ### Description
 Value Objects are used to have validated objects in the application. On creation they are validated
@@ -13,11 +15,11 @@ or the value itself.
 
 ### Example (with EmailAddress)
 ```dart
-final EmailAddress emailAddress = EmailAddress('test@gmail.com');
+final EmailAddress emailAddress = EmailAddress.apply('test@gmail.com');
 print(emailAdress);
 > Value(Right(test@gmail.com))
 
-final EmailAddress emailAddress = EmailAddress('test99@');
+final EmailAddress emailAddress = EmailAddress.apply('test99@');
 print(emailAddress);
 > Value(Left(...)
 ```
@@ -29,13 +31,22 @@ using the factories. An either is created with the *validate(value)* method. See
 
 ### Example (with StringValidator)
 ```dart
-final eitherResult = Validator.string().minLength(3).validate('Hello World');
+final Either<ValueFailurue, String> eitherResult = Validator.string().minLength(3).validate('Hello World');
 print(eitherResult);
 > Value(Right(Hello World))
 
-final eitherResult = Validator.string().minLength(3).validate('Hi');
+final Either<ValueFailurue, String> eitherResult = Validator.string().minLength(3).validate('Hi');
 print(eitherResult);
 > Value(Left(Unexpected value failure. Cause: String length < 3))
+```
+
+If there is no validation needed, the value can be passed directly using the *unchecked()* method of
+the validator.
+
+```dart
+final Either<ValueFailure, String> firstname = Validator.unchecked('Christian');
+print(firstname);
+> Value(Right(Christian))
 ```
 
 ## Types and ValueObjects
@@ -50,13 +61,12 @@ class NewValueObject extends ValueObject<String> {
 
   const NewValueObject._(this.value);
 
-  factory NewValueObject(final String input) {
-    return NewValueObject._(
-      Validator.string()
-          .minLength(8)
-          .validate(input)
-    );
-  }
+  factory NewValueObject.apply(final String input) => 
+      NewValueObject._(
+          Validator.string()
+            .minLength(8)
+            .validate(input)
+      );
 }
 ```
 
