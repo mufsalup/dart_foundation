@@ -11,11 +11,11 @@ class Password extends ValueObject<String> {
 
   factory Password(final String input) => Password._(
     Validator.string()
-        .minLength(8)
         .containsLowercase()
         .containsUppercase()
         .containsDigit()
         .containsSpecialChar()
+        .minLength(8)
         .validate(input),
   );
 }

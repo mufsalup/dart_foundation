@@ -3,6 +3,9 @@ ___
 
 Copyright: Christian Holler
 
+## 1.0.0+3
+- Bugfix: Changed order of validation for passwords 
+
 ## 1.0.0+2
 - Added new validation for StringValidator '*inList(List<String>)*'
 - Added tests for created validation
