@@ -170,6 +170,8 @@ void main() {
           .minLength(8);
       final result = validator.validate('abcd1234');
       expect(result.isLeft(), isTrue);
+      final password = validator.validate('Passwort!123');
+      expect(password.isRight(), isTrue);
     });
   });
 }

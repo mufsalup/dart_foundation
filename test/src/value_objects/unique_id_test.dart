@@ -16,12 +16,15 @@ void main() {
       expect(value, isNotEmpty);
     });
 
-    test('UniqueId() should generate different values for different instances', () {
-      final first = UniqueId.uuidV4();
-      final second = UniqueId.uuidV4();
-      expect(first == second, isFalse);
-      expect(first.getOrCrash(), isNot(equals(second.getOrCrash())));
-    });
+    test(
+      'UniqueId() should generate different values for different instances',
+      () {
+        final first = UniqueId.uuidV4();
+        final second = UniqueId.uuidV4();
+        expect(first == second, isFalse);
+        expect(first.getOrCrash(), isNot(equals(second.getOrCrash())));
+      },
+    );
 
     test('fromUniqueString() should wrap the provided string in Right', () {
       const input = 'custom-id-123';
@@ -30,12 +33,15 @@ void main() {
       expect(uniqueId.value, equals(right(input)));
     });
 
-    test('fromUniqueString() should return the provided string with getOrCrash()', () {
-      const input = 'custom-id-123';
-      final uniqueId = UniqueId.fromUniqueString(input);
-      final result = uniqueId.getOrCrash();
-      expect(result, equals(input));
-    });
+    test(
+      'fromUniqueString() should return the provided string with getOrCrash()',
+      () {
+        const input = 'custom-id-123';
+        final uniqueId = UniqueId.fromUniqueString(input);
+        final result = uniqueId.getOrCrash();
+        expect(result, equals(input));
+      },
+    );
 
     test('two UniqueId objects from the same string should be equal', () {
       final first = UniqueId.fromUniqueString('same-id');
@@ -49,17 +55,23 @@ void main() {
       expect(first == second, isFalse);
     });
 
-    test('hashCode should be equal for UniqueId objects with the same value', () {
-      final first = UniqueId.fromUniqueString('same-id');
-      final second = UniqueId.fromUniqueString('same-id');
-      expect(first.hashCode, equals(second.hashCode));
-    });
+    test(
+      'hashCode should be equal for UniqueId objects with the same value',
+      () {
+        final first = UniqueId.fromUniqueString('same-id');
+        final second = UniqueId.fromUniqueString('same-id');
+        expect(first.hashCode, equals(second.hashCode));
+      },
+    );
 
-    test('toString() should return Value(...) representation for fromUniqueString()', () {
-      final uniqueId = UniqueId.fromUniqueString('my-id');
-      final result = uniqueId.toString();
-      expect(result, equals('Value(Right(my-id))'));
-    });
+    test(
+      'toString() should return Value(...) representation for fromUniqueString()',
+      () {
+        final uniqueId = UniqueId.fromUniqueString('my-id');
+        final result = uniqueId.toString();
+        expect(result, equals('Value(Right(my-id))'));
+      },
+    );
 
     test('generated UniqueId should look like a UUID v4 string', () {
       final uuidV4Pattern = RegExp(
@@ -68,6 +80,29 @@ void main() {
       final uniqueId = UniqueId.uuidV4();
       final value = uniqueId.getOrCrash();
       expect(uuidV4Pattern.hasMatch(value), isTrue);
+    });
+
+    test('validated factory should apply string validations', () {
+      final uniqueId = UniqueId.validated(
+        UniqueId.uuidV4().getOrCrash(),
+        validator: Validator.string().notEmpty().matchesRegex(
+          RegExp(
+            r'^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$',
+          ),
+        ),
+      );
+      expect(uniqueId.isValid(), isTrue);
+      expect(uniqueId.value.isRight(), isTrue);
+      final failingUniqueId = UniqueId.validated(
+        "MamaMia",
+        validator: Validator.string().matchesRegex(
+          RegExp(
+            r'^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$',
+          ),
+        ),
+      );
+      expect(failingUniqueId.isValid(), isFalse);
+      expect(failingUniqueId.value.isLeft(), isTrue);
     });
   });
 }

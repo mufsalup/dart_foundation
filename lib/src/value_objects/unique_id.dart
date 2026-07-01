@@ -22,4 +22,14 @@ class UniqueId extends ValueObject<String> {
   /// Therefore we have to trust that we only use it if the know it is.
   factory UniqueId.fromUniqueString(final String uniqueId) =>
       UniqueId._(Validator.unchecked(uniqueId));
+
+  /// Returns the input string as UniqueId after validation.
+  /// This can be used to apply specific regex to the uniqueId.
+  ///
+  /// There is no possible way to check if an id is unique or not.
+  /// Therefore we have to trust that we only use it if the know it is.
+  factory UniqueId.validated(
+    final String input, {
+    required final StringValidator validator,
+  }) => UniqueId._(validator.validate(input));
 }
