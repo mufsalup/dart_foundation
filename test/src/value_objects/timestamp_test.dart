@@ -1,5 +1,4 @@
 import 'package:dart_foundation/dart_foundation.dart';
-import 'package:dart_foundation/src/value_objects/timestamp.dart';
 import 'package:test/test.dart';
 
 void main() {
